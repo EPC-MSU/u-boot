@@ -1,0 +1,7 @@
+T-PLATFORMS SBC101
+M:	Sergey Semin <sergey.semin@t-platforms.ru>
+S:	Maintained
+F:	board/baikal/mips/sbc101
+F:	include/configs/tplatforms_sbc101.h
+F:	configs/tplatforms_sbc101_defconfig
+

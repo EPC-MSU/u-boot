@@ -1,0 +1,6 @@
+T-PLATFORMS SFBT1
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/sfbt1
+F:	include/configs/tplatforms_sfbt1.h
+F:	configs/tplatforms_sfbt1_defconfig

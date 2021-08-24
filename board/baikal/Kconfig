@@ -1,0 +1,33 @@
+if TARGET_BAIKAL_MIPS
+
+config SYS_CPU
+	string
+	default "mips32"
+
+config SYS_BOARD
+	string
+	default "baikal_mips"
+
+config SYS_CONFIG_NAME
+	string
+	default "baikal_mips"
+
+endif
+
+if TARGET_BAIKAL_TMP
+
+config SYS_CPU
+	string
+	default "arm7"
+
+config SYS_BOARD
+	string
+	default "baikal_tmp"
+
+config SYS_CONFIG_NAME
+	string
+	default "baikal_tmp"
+
+endif
+
+source "board/baikal/mips/Kconfig"

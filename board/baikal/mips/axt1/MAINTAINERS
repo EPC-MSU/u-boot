@@ -1,0 +1,8 @@
+T-PLATFORMS AXT1
+M:	Sergey Semin <sergey.semin@t-platforms.ru>
+S:	Maintained
+F:	board/baikal/mips/axt1
+F:	include/configs/tplatforms_axt1.h
+F:	configs/tplatforms_axt1_defconfig
+F:	configs/tplatforms_axt1-msbt2_defconfig
+F:	configs/tplatforms_axt1-sfbt1_defconfig

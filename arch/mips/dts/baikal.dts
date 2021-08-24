@@ -1,0 +1,15 @@
+/dts-v1/;
+
+/ {
+        model = "Keys";
+        compatible = "be,baikal-t";
+
+        signature {
+                key-baikal {
+                        required = "conf";
+                        algo = "sha1,rsa2048";
+                        key-name-hint = "baikal";
+                        sign-images = "fdt", "kernel";
+                };
+        };
+};

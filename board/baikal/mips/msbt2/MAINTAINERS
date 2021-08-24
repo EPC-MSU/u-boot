@@ -1,0 +1,6 @@
+T-PLATFORMS MSBT2
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/msbt2
+F:	include/configs/tplatforms_msbt2.h
+F:	configs/tplatforms_msbt2_defconfig

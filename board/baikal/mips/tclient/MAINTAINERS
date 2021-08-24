@@ -1,0 +1,7 @@
+T-PLATFORMS TCLIENT
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/tclient
+F:	include/configs/tplatforms_tc.h
+F:	configs/tplatforms_tc-sfbt1_defconfig
+F:	configs/tplatforms_tc-msbt2_defconfig

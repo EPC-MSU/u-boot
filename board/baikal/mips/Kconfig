@@ -1,0 +1,511 @@
+# -----------------------------------------------
+# Baikal-T board configuration
+#
+# Created: 22.08.2014
+# -----------------------------------------------
+
+menu "Baikal-T SoC options"
+	depends on TARGET_BAIKAL_MIPS
+
+# -----------------------------------------------
+# Board Selection
+# -----------------------------------------------
+choice
+        prompt "Board type"
+        default BAIKAL_QEMU
+
+config BAIKAL_QEMU
+	bool "Baikal-T for QEMU"
+	help
+	  Select this option for Baikal-T for QEMU support
+
+config BAIKAL_FPGA
+	bool "Baikal-T for HAPS FPGA"
+	help
+	  Select this option for Baikal-T for HAPS FPGA board
+
+config BAIKAL_BFK
+	bool "Baikal-T for BFK Board"
+	help
+	  Select this option for Baikal-T for BFK board
+
+config BAIKAL_BFK3
+	bool "Baikal-T1 for BFK3 Board"
+	help
+	  Select this option for Baikal-T1 for BFK3 board
+ 
+config BAIKAL_BFKX
+	bool "Baikal-T1 for BFKX Board"
+	help
+	  Select this option for Baikal-T1 for BFK board
+
+config TPLATFORMS_SFBT1
+	bool "Baikal-T for T-platforms SFBT1 Board"
+	help
+	  Select this option for T-platforms Baikal-T based SFBT1 board
+
+config TPLATFORMS_MITX
+	bool "Baikal-T1 for T-platforms MITX Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based MITX board
+
+config TPLATFORMS_RT1MB
+	bool "Baikal-T1 for T-platforms RT1MB Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based RT1MB board
+
+config TPLATFORMS_MSBT2
+	bool "Baikal-T1 for T-platforms MSBT2 Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based MSBT2 board
+
+config TPLATFORMS_MRBT1
+	bool "Baikal-T1 for T-platforms MRBT1 Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based MRBT1 board
+
+config TPLATFORMS_AXT1_SFBT1
+	bool "SFBT1 for T-platforms Axitech v1 Board"
+	help
+	  Select this option for T-platforms Axitech v1 board with SFBT1 installed
+
+config TPLATFORMS_AXT1_MSBT2
+	bool "MSBT2 for T-platforms Axitech v1 Board"
+	help
+	  Select this option for T-platforms Axitech v1 board with MSBT2 installed
+
+config TPLATFORMS_BC3BT1_MRBT1
+	bool "MRBT1 for T-platforms Axitech BC3BT1 Board"
+	help
+	  Select this option for T-platforms Axitech BC3BT1 board with MRBT1 installed
+
+config TPLATFORMS_TC_SFBT1
+	bool "SFBT1 for T-platforms T-client Board"
+	help
+	  Select this option for T-platforms T-client board with SFBT1 installed
+
+config TPLATFORMS_TC_MSBT2
+	bool "MSBT2 for T-platforms T-client Board"
+	help
+	  Select this option for T-platforms T-client board with MSBT2 installed
+
+config TPLATFORMS_CNC_SFBT1
+	bool "SFBT1 for T-platforms CNC Boards"
+	help
+	  Select this option for T-platforms CNC boards with SFBT1 installed
+
+config TPLATFORMS_CNC_MSBT2
+	bool "MSBT2 for T-platforms CNC Boards"
+	help
+	  Select this option for T-platforms CNC boards with MSBT2 installed
+
+config TPLATFORMS_BN1BT1
+	bool "Baikal-T1 for T-platforms BN1BT1 Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based BN1BT1 board
+
+config TPLATFORMS_SBC101
+	bool "Baikal-T1 for T-platforms SBC101 Board"
+	help
+	  Select this option for T-platforms Baikal-T1 based SBC101 (aka RBBT) board
+
+endchoice # Board type
+
+if TPLATFORMS_MITX || TPLATFORMS_BN1BT1
+
+choice
+        prompt "Choose the way to enter recovery"
+        default LONGPRESS
+
+config LONGPRESS
+	bool "Enter recovery by longpressing power button"
+	help
+	  Select this option if you are sane
+
+config JUMPER
+	bool "Enter recovery by jumper connecting rx to tx"
+	help
+	  Select this option well...  in other case
+
+endchoice # the way to enter recovery
+
+endif # TPLATFORMS_MITX
+
+if TARGET_BAIKAL_MIPS
+
+config BAIKAL_T1
+	bool "Use Baikal-T1 CPU"
+	help
+	  Select this option to use Baikal-T1 CPU.
+
+config SYS_CPU
+	string "Define this to compile arch/<arch>/cpu/<cpu>/<soc>"
+	default "mips32"
+
+config SYS_BOARD
+	string "Define this to compile board/<vendor>/<board>/*"
+	default "mips"
+
+config SYS_VENDOR
+	string "Define this to compile board/<vendor>/{common,<board>}/*"
+	default "baikal"
+
+#config SYS_SOC
+#	string
+#	default "baikal"
+
+config SYS_CONFIG_NAME
+	string "Define this to include include/configs/<config_name>.h"
+	default "baikal_mips"
+
+config TP_BOOTCONF
+	bool
+	default TPLATFORMS_MITX || TPLATFORMS_BN1BT1 || TPLATFORMS_MRBT1 || TPLATFORMS_SBC101
+
+config TP_FRU
+	bool
+	default TPLATFORMS_MITX || TPLATFORMS_MRBT1 || TPLATFORMS_MSBT2 || \
+		TPLATFORMS_BN1BT1 || TPLATFORMS_BC3BT1_MRBT1 || \
+		TPLATFORMS_TC_MSBT2 || TPLATFORMS_CNC_MSBT2 || \
+		TPLATFORMS_AXT1_MSBT2 || TPLATFORMS_SBC101
+
+endif # TARGET_BAIKAL_MIPS
+
+# -----------------------------------------------
+# Compilation Options
+# -----------------------------------------------
+menu "Compilation Options"
+
+config TUNE_P5600
+	bool "Tune to MIPS P5600 architecture"
+	default n
+	help
+	  Select this option if you need to compile
+	  with optimization for MIPS P5600 architecture.
+	  Works properly only on gcc version 5.* and higher.
+
+config USE_HARD_FLOAT
+	bool "Use hard float option"
+	default n
+	help
+	  Select this option to use hard-float operations
+	  instead of soft-float (suitable for most SoCs)
+
+endmenu # Compilation Options
+
+# -----------------------------------------------
+# Common Options
+# -----------------------------------------------
+menu "Common Options"
+
+config BOARD_EARLY_INIT_F
+	bool "Early board initialization"
+	default n
+	help
+	  Select this option if early board initialization is need
+
+config DISPLAY_CPUINFO
+	bool "Display common cpu info"
+	default y
+	help
+	  Select this option to display cpuinfo on startup
+
+config DISPLAY_BOARDINFO
+	bool "Display board info"
+	default y
+	help
+	  Select this option to display boardinfo on startup
+
+config BAIKAL_PRINT_DDR
+	bool "Print DDR controller regs"
+	default n
+	help
+	  Select this option to see DDR controller initialization regs
+
+endmenu # Common Options
+
+# -----------------------------------------------
+# Boot Options
+# -----------------------------------------------
+menu "Boot Options"
+
+config CMDLINE_TAG
+	bool "Enable passing of ATAGs"
+	select SETUP_MEMORY_TAGS
+	default n
+	help
+	  Select this option to pass ATAG structure on kernel boot
+
+config INITRD_TAG
+	bool "Use separate InitRD image for kernel"
+	default n
+	help
+	  Select this option to pass InitRD location to kernel
+
+endmenu # Boot Options
+
+# -----------------------------------------------
+# Command Line Options
+# -----------------------------------------------
+menu "Command Line Options"
+
+config AUTO_COMPLETE
+	bool "Enable autocomplete"
+	default y
+	help
+	  Select this option to enable bash-like TAB-based autocomplete
+
+config CMDLINE_EDITING
+	bool "Enable command history editing"
+	default y
+	help
+	  Select this option to enable U-Boot command history
+
+#
+# Commands: Ungrupped commands
+#
+config CMD_ENV
+	bool "Enable enviroment manipulation command"
+	default y
+	help
+	  Select this option to be able to modify enviroment options
+
+if CMD_ENV
+
+config ENV_OVERWRITE
+	bool "Allow overwrite serial and ethaddr options"
+	default y
+	help
+	  Select this option to be able to modify serial console and ethernet mac address
+
+endif # CMD_ENV
+
+config VERSION_VARIABLE
+	bool "Enable change U-Boot version"
+	default n
+	help
+	  Select this option to be able to change U-Boot version string
+
+config CMD_GO
+	bool "Enable 'go' command"
+	default y
+	help
+	  Select this option to enable 'go' command
+
+config CMD_SAVES
+	bool "Enable 'save' command"
+	default y
+	help
+	  Select this option to enable 'save' command
+
+config CMD_CRC32
+	bool "Enable 'crc32' command"
+	default y
+	help
+	  Select this option to enable 'crc32' command
+
+config CMD_EXIT
+	bool "Enable exit from simulator command"
+	default n
+	help
+	  Select this option to enable exit from simulator command
+
+#
+# Commands: Networkind
+#
+if CMD_NET
+
+config CMD_MII
+	bool "MII (Media Independed Interface) management command"
+	default y
+
+config CMD_PING
+	bool "ICMP Echo Ping command"
+	default y
+
+config CMD_DHCP
+	bool "DHCP management command"
+	default y
+
+menuconfig BOOTP
+	bool "Enable BOOTP protocol commands"
+	default y
+	help
+	  Select this option to enable BOOTP protocol commands
+
+if BOOTP
+
+config BOOTP_SUBNETMASK
+	bool "Enable to set BOOTP subnet mask"
+	default y
+
+config BOOTP_BOOTP_GATEWAY
+	bool "Enable to set BOOTP default gateway address"
+	default y
+
+config BOOTP_HOSTNAME
+	bool "Enable to set BOOTP hostname"
+	default y
+
+config BOOTP_BOOTPATH
+	bool "Enable to set BOOTP boot path"
+	default y
+
+endif # BOOTP
+
+endif # CMD_NET
+
+endmenu # Command Line Options
+
+
+config BAIKAL_ECC
+	bool "ECC enable mode"
+	default n
+
+config DDR_FREQ_TWEAK
+	int "Adjust DDR3 PLL frequency"
+	range -2 2
+	default "0"
+	help
+	  This allows to increase or decrease DDR3 PLL frequency in 3% steps
+
+config DDR_CUSTOM_CLK
+	int "Set custom DDR3 bus clocks frequency"
+	default "0"
+	help
+	  This allows to set custom DDR3 clocks frequency (MT/s). Values out
+	  of [1066; 1600] range effectively disable the customization.
+
+config CUSTOM_SPD
+	bool "Use user supplied SPD data"
+	default n
+
+if CUSTOM_SPD
+
+config CUSTOM_SPD_FILE
+	string "User defined SPD file"
+	help
+	  Read DDR3 SPD data from SPD_<name>.c file
+
+endif # CUSTOM_SPD
+
+# -----------------------------------------------
+# Device drivers
+# -----------------------------------------------
+menu "Device drivers"
+
+#
+# Driver: Serial console
+#
+
+menuconfig SERIAL
+	bool "Enable serial console"
+	default y
+#	select
+	help
+	  Select this option to enable serial console
+
+if SERIAL
+
+config CONS_INDEX
+	int "Index of primary serial console"
+	default 1
+
+config BAUDRATE
+	int "Serial console baudrate"
+	default 115200
+
+endif # SERIAL
+
+#
+# Driver: Flatten device tree
+#
+menuconfig OF_LIBFDT
+	bool "Enable Flatten device tree support"
+	default n
+	help
+	  Select this option to enable Flatten device tree support
+
+if OF_LIBFDT
+
+config FDT_BLOB_SKIP_UPDATE
+	bool "Skip update flatten device tree"
+	default n
+
+endif # OF_LIBFDT
+
+endmenu # Device drivers
+
+
+
+# -----------------------------------------------
+# Interrupt support options
+# -----------------------------------------------
+menuconfig USE_IRQ
+	bool "Use IRQ subsystem"
+	---help---
+	  Interrupt subsystem support options
+
+	  To use SoC IRQ handler this parameter should be defined. 
+	  Also arch_interrupt_init and do_irq should be defined 
+	  (in board-specific part).
+
+	  It is highly recommended to don't use this options.
+	  If you don't know what to do here, definitely say N.
+
+if USE_IRQ
+
+config SSIZE_IRQ_MODE
+	int "Stack size in IRQ mode"
+	default 16384
+	help
+	  Please specify stack size in IRQ mode
+
+config SSIZE_SYS_MODE
+	int "Stack size in Exception mode"
+	default 16384
+	help
+	  Please specify stack size in Exception mode
+
+config CONFIG_STACKSIZE_IRQ
+	int "Stack size in IRQ mode"
+	default 16384
+	help
+	  Please specify stack size in IRQ mode
+
+endif # Use IRQ subsytem
+
+# -----------------------------------------------
+# Debug Options
+# -----------------------------------------------
+menuconfig DEBUG
+	bool "Debug options"
+	---help---
+	  Debug options for developer version
+
+	  This option is sutiable only for debug purposes.
+	  Its adds too many develop-specific printouts which
+	  is useless for end-point user.
+
+	  Please unset this option on release version.
+
+if DEBUG
+
+config DEBUG_EARLY_SERIAL
+	bool "Early serial console debug information"
+	help
+	  Select this option for very early debug output
+
+config DEBUG_DUMP
+	bool "Dump debug information on console"
+	help
+	  Select this option to see more debug information on startup
+
+config DEBUG_DUMP_SYMS
+	bool "Dump build symbols information during startup"
+	help
+	  Select this option to see symbols which is pass through executing code
+
+endif # Debug options
+
+endmenu # Baikal-T SoC options

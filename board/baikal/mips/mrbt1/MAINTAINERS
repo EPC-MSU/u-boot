@@ -1,0 +1,6 @@
+T-PLATFORMS MRBT1
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/mrbt1
+F:	include/configs/tplatforms_mrbt1.h
+F:	configs/tplatforms_mrbt1_defconfig

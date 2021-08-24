@@ -1,0 +1,7 @@
+T-PLATFORMS BN1BT1
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/bn1bt1
+F:	include/configs/tplatforms_bn1bt1.h
+F:	configs/tplatforms_bn1bt1_defconfig
+

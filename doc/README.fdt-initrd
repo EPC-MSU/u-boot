@@ -1,0 +1,32 @@
+#
+# Copyright (c) 2015 Baikal Electronics JSC.
+#
+
+Device Tree InitRD in U-Boot
+=============================
+
+One of feature of using flat device tree (fdt) in u-boot is ability
+to fill out device tree initrd parameters linux,initrd-start and
+linux,initrd-end automatically when initrd image is loaded into
+DRAM. Linux kernel requires that initrd image should be aligned to
+the value of PAGE_SIZE. Most of modern architectures uses page size
+differ than 4KiB (f.ex ARM64 supose to use 64KiB pages). Old version
+of u-boot was used fixed page size 0x1000 (4KiB) defined in
+include/linux/compat.h. Also the hardcoded value of 0x1000 was used
+in file common/image.c for aligment of initrd memory block.
+
+Current implementation allows to setup PAGE_SIZE with common
+Linux values according to your kernel implementation. To change
+page size one should define right value in your board configuration:
+
+  Constant                Page Size
+  --------------------------------------
+  CONFIG_PAGE_SIZE_4KB    0x01000 ( 4KiB)
+  CONFIG_PAGE_SIZE_16KB   0x04000 (16KiB)
+  CONFIG_PAGE_SIZE_64KB   0x10000 (64KiB)
+
+The default value is still 0x1000 (4KiB)
+
+--
+Dmitry Dunaev <dmitry.dunaev@baikalelectronics.ru>
+15-Apr-2015

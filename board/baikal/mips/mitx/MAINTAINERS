@@ -1,0 +1,7 @@
+T-PLATFORMS MITX
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/mitx
+F:	include/configs/tplatforms_mitx.h
+F:	configs/tplatforms_mitx_defconfig
+F:	configs/tplatforms_mitx_jumper_defconfig

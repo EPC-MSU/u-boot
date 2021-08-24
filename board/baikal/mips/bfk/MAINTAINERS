@@ -1,0 +1,11 @@
+BFK BOARD
+M:	Alexey Malahov <Alexey.Malahov@baikalelectronics.com>
+S:	Maintained
+F:	board/baikal/mips/bfk
+F:	include/configs/baikal_bfk.h
+F:	configs/baikal_bfk_defconfig
+F:	configs/baikal_bfk3_defconfig
+F:	configs/baikal_bfkx_defconfig
+F:	configs/baikal_fpga_defconfig
+F:	configs/baikal_qemu_defconfig
+F:	configs/baikal_defconfig

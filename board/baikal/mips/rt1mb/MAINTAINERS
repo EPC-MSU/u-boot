@@ -1,0 +1,6 @@
+T-PLATFORMS RT1MB
+M:	Vadim Vlasov <vadim@gmx.com>
+S:	Maintained
+F:	board/baikal/mips/rt1mb
+F:	include/configs/tplatforms_rt1mb.h
+F:	configs/tplatforms_rt1mb_defconfig

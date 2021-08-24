@@ -1,0 +1,7 @@
+T-PLATFORMS CNC
+M:	Sergey Semin <sergey.semin@t-platforms.ru>
+S:	Maintained
+F:	board/baikal/mips/cnc
+F:	include/configs/tplatforms_cnc.h
+F:	configs/tplatforms_cnc-sfbt1_defconfig
+F:	configs/tplatforms_cnc-msbt2_defconfig

@@ -1,0 +1,67 @@
+#
+# Copyright (c) 2015 Baikal Electronics JSC.
+#
+
+Boot Kernel in U-Boot using Device Tree
+=======================================
+Most of modern architectures uses Flat Device Tree to describe
+system devices and pass boot parameters to Linux Kernel. One of
+feature of U-Boot is automatically update of '/chosen' node in
+device tree with initrd and kernel boot string values.
+
+Current kernel boot implementation in MIPS architecture pass four
+arguments to kernel entry routine (i.e. 'kernel_entry' function).
+This arguments saves in global internal variables named 
+fw_arg0-fw_arg3. For most MIPS-based board boot parameter passes
+in C-like 'main' routine manner:
+
+  * fw_arg0 contains argc value (arguments count)
+
+  * fw_arg1 contains argv pointer (arguments values)
+
+  * fw_arg2 contains pointer to bootloader enviroment variables
+
+  * fw_arg3 is ignored in most cases except the Malta board
+
+Main idea to make possible booting Linux Kernel with Device Tree
+is to pass relocated device tree blob pointer as argument to
+kernel startup routine. So using fw_arg3 as container of
+physical DRAM location of device tree blob makes possible
+to use modern FDT boot style in conjunction with old kernel
+string passing style (old style make possible to pass some boot
+parameters if device tree blob is currupted).
+
+The Linux side code should contains some architecture init
+code like this one:
+
+    void *fdt = config_enabled(CONFIG_BUILTIN_DTB) ?
+                __dtb_start : phys_to_virt(fw_arg3);
+
+    if (!early_init_dt_scan(fdt))
+        goto no_dtb;
+
+    return 0;
+
+no_dtb:
+
+    fw_init_cmdline();
+    return -1;
+
+
+The initrd parameters linux,initrd-start and linux,initrd-end
+updates automatically with real relocation values selected by u-boot.
+In legacy MIPS memory model this addresses wil be in KSEG0 but
+Linux expects the physical addresses. So before boot one need to
+update initrd adressess in '/chosen' node with physical addresess.
+Now it will be done by MIPS u-boot code.
+
+TODOs
+====
+
+  * Cleanup procedure before Linux boot
+
+  * Update FDT device parameter (mac addresses, line number and so on)
+
+--
+Dmitry Dunaev <dmitry.dunaev@baikalelectronics.ru>
+15-Apr-2015

@@ -1,0 +1,22 @@
+Ubuntu 18 and newer use a more recent SSL library version, which is not
+compatible with the headers used by U-Boot. If you build u-boot stand-alone,
+then it will try to pick up the system's SSL version by default.  If you build
+u-boot as part of the yocto build system, then it will take care of things, and
+you do not need to do anything extra.
+
+For stand-alone builds, under Ubuntu 18 and newer, use the following workaround:
+
+Take binary libssl_1.0.0.tar.gz with the old SSL from T-Platforms TP-ЅDK and
+use it locally:
+
+$ wget update.t-platforms.ru/dists/tpsdk/libssl_1.0.0.tar.gz
+$ cd u-boot
+$ tar xf ~/libssl_1.0.0.tar.gz
+$ cd libssl/
+$ export LIBSSLDIR="$(pwd)"
+$ export HOSTCC="cc -I${LIBSSLDIR}/include -L${LIBSSLDIR}/x86_64-linux-gnu"
+$ export LD_LIBRARY_PATH="${LIBSSLDIR}/x86_64-linux-gnu/"
+
+Now you can build U-Boot:
+$ make -j8 ARCH=mips CROSS_COMPILE=mipsel-baikal-linux- HOSTCC="${HOSTCC}"
+

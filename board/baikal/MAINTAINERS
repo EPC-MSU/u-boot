@@ -1,0 +1,7 @@
+BAIKAL-MIPS BOARD
+M:	Dmitry Dunaev <dmitry.dunaev@baikalelectronics.ru>
+S:	Maintained
+F:	board/baikal/mips/
+F:	include/configs/baikal_mips.h
+F:	configs/baikal_mips_defconfig
+

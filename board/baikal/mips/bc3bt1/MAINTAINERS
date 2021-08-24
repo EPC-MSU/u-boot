@@ -1,0 +1,7 @@
+T-PLATFORMS BC3BT1
+M:	Sergey Semin <sergey.semin@t-platforms.ru>
+S:	Maintained
+F:	board/baikal/mips/bc3bt1
+F:	include/configs/tplatforms_bc3bt1.h
+F:	configs/tplatforms_bc3bt1-mrbt1_defconfig
+
